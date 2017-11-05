@@ -2,5 +2,12 @@ language: python
 python:
  - "2.7"
 script:
+  - rm -rf tests
   - python update.py
-  - find tests -type f
+after_success:
+  - git config user.email "bot@foolip.org"
+  - git config user.name "Automat af Cykelskjul"
+  - git checkout -b auto-update
+  - git add tests
+  - git commit -m "Automatic update" -m "Using commit $TRAVIS_COMMIT" -m "https://travis-ci.org/foolip/ecosystem-infra-stats/builds/$TRAVIS_BUILD_ID"
+  - git show
