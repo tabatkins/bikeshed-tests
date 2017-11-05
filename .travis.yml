@@ -3,7 +3,7 @@ branches:
     - master
 language: python
 python:
- - "2.7"
+  - "2.7"
 script:
   - python update.py
 after_success:
@@ -16,7 +16,11 @@ after_success:
   - mv tests bikeshed/tests/github
   - cd bikeshed
   - pip install --editable .
-  - find tests/github -type f | xargs bikeshed test --rebase
+  - |
+    find tests/github -type f | while read file; do
+      echo "rebasing $file"
+      bikeshed test --rebase "$file"
+    done
   - git checkout -b auto-test-update
   - git add -A
   - git config user.email "bot@foolip.org"
