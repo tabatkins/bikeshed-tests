@@ -7,7 +7,7 @@ python:
 script:
   - python update.py
 after_success:
-  - git clone --branch deploy "https://@GH_TOKEN@github.com/foolip/bikeshed-tests.git" deploy
+  - git clone --branch deploy "https://$GH_TOKEN@github.com/foolip/bikeshed-tests.git" deploy
   - rm -rf deploy/tests
   - mv tests deploy/
   - cd deploy
