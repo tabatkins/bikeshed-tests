@@ -14,7 +14,7 @@ def process_repo(repo):
         tree = repo.get_git_tree(repo.default_branch, recursive=True)
     except Exception as err:
         if err.status in [404, 409]:
-            print '  error getting tree: {}'.format(err.message)
+            print '  error getting tree: {}'.format(err.data)
             return
         raise
     for entry in tree.tree:
