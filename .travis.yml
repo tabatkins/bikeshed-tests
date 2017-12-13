@@ -22,7 +22,7 @@ script:
   - |
     find tests/github -type f | while read file; do
       echo "rebasing $file"
-      bikeshed test --rebase "$file"
+      bikeshed test --rebase "$file" --md-Text-Macro="SNAPSHOT-LINK TEST COPY"
     done
 after_success:
   - git checkout -b auto-test-update
