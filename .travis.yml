@@ -4,23 +4,27 @@ branches:
 language: python
 python:
   - "2.7"
-script:
-  - python update.py
-after_success:
+install:
+  - pip install -r requirements.txt
   - openssl aes-256-cbc -K $encrypted_b3a6c5eb4231_key -iv $encrypted_b3a6c5eb4231_iv -in deploy_key.enc -out deploy_key -d
   - chmod 0600 deploy_key
   - eval "$(ssh-agent -s)"
   - ssh-add deploy_key
   - git clone git@github.com:foolip/bikeshed.git
+  - cd bikeshed
+  - pip install --editable .
+  - cd ..
+script:
+  - python update.py
   - rm -rf bikeshed/tests/github
   - mv tests bikeshed/tests/github
   - cd bikeshed
-  - pip install --editable .
   - |
     find tests/github -type f | while read file; do
       echo "rebasing $file"
       bikeshed test --rebase "$file"
     done
+after_success:
   - git checkout -b auto-test-update
   - git add -A
   - git config user.email "bot@foolip.org"
