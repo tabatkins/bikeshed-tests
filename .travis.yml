@@ -10,10 +10,8 @@ install:
   - chmod 0600 deploy_key
   - eval "$(ssh-agent -s)"
   - ssh-add deploy_key
-  - git clone git@github.com:foolip/bikeshed.git
+  - git clone https://github.com/tabatkins/bikeshed.git
   - cd bikeshed
-  - git pull --ff-only https://github.com/tabatkins/bikeshed.git
-  - git push
   - pip install --editable .
   - cd ..
 script:
@@ -28,4 +26,4 @@ after_success:
   - git config user.email "bot@foolip.org"
   - git config user.name "Automat af Cykelskjul"
   - git commit -m "Automatic test update" -m "Using bikeshed-tests commit $TRAVIS_COMMIT" -m "https://travis-ci.org/foolip/bikeshed-tests/builds/$TRAVIS_BUILD_ID"
-  - git push -f origin auto-test-update
+  - git push -f git@github.com:foolip/bikeshed.git master auto-test-update
