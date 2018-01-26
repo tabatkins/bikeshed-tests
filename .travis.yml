@@ -21,11 +21,7 @@ script:
   - rm -rf bikeshed/tests/github
   - mv tests bikeshed/tests/github
   - cd bikeshed
-  - |
-    find tests/github -type f | while read file; do
-      echo "rebasing $file"
-      bikeshed test --rebase "$file"
-    done
+  - find tests/github -type f | xargs bikeshed test --rebase
 after_success:
   - git checkout -b auto-test-update
   - git add -A
