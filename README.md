@@ -1,7 +1,7 @@
 # Bikeshed tests auto-updater
 
 This repo collects *.bs files from GitHub repos and creates PRs to update
-(bikeshed's tests)[https://github.com/tabatkins/bikeshed/tree/master/tests/github].
+[bikeshed's tests](https://github.com/tabatkins/bikeshed/tree/master/tests/github).
 
 ## Running locally
 
