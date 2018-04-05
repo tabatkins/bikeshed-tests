@@ -27,3 +27,4 @@ after_success:
   - git config user.name "Automat af Cykelskjul"
   - git commit -m "Automatic test update" -m "Using bikeshed-tests commit $TRAVIS_COMMIT" -m "https://travis-ci.org/foolip/bikeshed-tests/builds/$TRAVIS_BUILD_ID"
   - git push -f git@github.com:foolip/bikeshed.git master auto-test-update
+  - python update_pr.py
