@@ -7,6 +7,7 @@ import sys
 from github import Github
 from github.GithubException import GithubException
 
+
 def getData():
     '''
     Parses specs.data into a {orgs: [], moreRepos:[], skipRepos: [], moreFiles: [], skipFiles[]}
@@ -19,7 +20,7 @@ def getData():
         "skipFiles": []
     }
     with io.open("specs.data", "r", encoding="utf-8") as fh:
-        for i,line in enumerate(fh.readlines(), 1):
+        for i, line in enumerate(fh.readlines(), 1):
             line = line.strip()
             if line == "":
                 # Empty lines are allowed
@@ -29,13 +30,15 @@ def getData():
                 continue
             match = re.match(r"(\+|-)(org|repo|file):\s*([^\s].*)", line)
             if not match:
-                raise Exception("Line {0} of the specs.data file has bad syntax.".format(i))
+                raise Exception(
+                    "Line {0} of the specs.data file has bad syntax.".format(i))
             [plusMinus, type, path] = match.groups()
             if type == "org":
                 if plusMinus == "-":
-                    raise Exception("Line {0} has a -org, which makes no sense.".format(i))
+                    raise Exception(
+                        "Line {0} has a -org, which makes no sense.".format(i))
                 data['orgs'].append(path)
-            elif type =="repo":
+            elif type == "repo":
                 if plusMinus == "+":
                     storage = data['moreRepos']
                 else:
@@ -44,7 +47,8 @@ def getData():
             elif type == "file":
                 if plusMinus == "+":
                     #storage = data['moreFiles']
-                    raise Exception("Line {0} has a +file, which isn't currently supported.".format(i))
+                    raise Exception(
+                        "Line {0} has a +file, which isn't currently supported.".format(i))
                 else:
                     storage = data['skipFiles']
                 storage.append(path)
@@ -64,6 +68,7 @@ def reposFromOrg(org, skipRepos=None):
         print "  * Found repo {0}".format(repo.full_name)
         yield repo
 
+
 def filesFromRepo(repo, skipFiles=None):
     if skipFiles is None:
         skipFiles = set()
@@ -74,7 +79,7 @@ def filesFromRepo(repo, skipFiles=None):
     try:
         tree = repo.get_git_tree(repo.default_branch, recursive=True)
     except GithubException as err:
-        if err.status == 409: # "Git Repository is empty"
+        if err.status == 409:  # "Git Repository is empty"
             return
         raise
     for entry in tree.tree:
@@ -88,6 +93,7 @@ def filesFromRepo(repo, skipFiles=None):
             assert blob.encoding == 'base64'
             text = unicode(base64.b64decode(blob.content), encoding="utf-8")
             yield {"path": path, "text": text}
+
 
 def processFile(file):
     path = os.path.join('tests', file['path'])
@@ -110,10 +116,11 @@ def main():
     for repoName in data['moreRepos']:
         repos.append(g.get_repo(repoName))
     files = []
-    for repo in sorted(repos, key=lambda x:x.full_name):
+    for repo in sorted(repos, key=lambda x: x.full_name):
         files.extend(filesFromRepo(repo, data['skipFiles']))
-    for file in sorted(files, key=lambda x:x['path']):
+    for file in sorted(files, key=lambda x: x['path']):
         processFile(file)
+
 
 if __name__ == '__main__':
     main()

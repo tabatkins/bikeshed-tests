@@ -3,6 +3,7 @@ import os
 
 from github import Github
 
+
 def create_pr():
     token = os.environ['GH_TOKEN']
     g = Github(token)
@@ -17,8 +18,10 @@ def create_pr():
                             head='foolip:auto-test-update')
     print('Created PR:', pull.html_url)
 
+
 def main():
     create_pr()
+
 
 if __name__ == '__main__':
     main()
