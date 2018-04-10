@@ -78,7 +78,8 @@ def filesFromRepo(repo, skipFiles=None):
             return
         raise
     for entry in tree.tree:
-        if entry.path in skipFiles:
+        path = repo.full_name+"/"+entry.path
+        if path in skipFiles:
             print "  * Skipping file {0}".format(entry.path)
             continue
         if entry.type == 'blob' and entry.path.endswith('.bs'):
@@ -86,7 +87,7 @@ def filesFromRepo(repo, skipFiles=None):
             blob = repo.get_git_blob(entry.sha)
             assert blob.encoding == 'base64'
             text = unicode(base64.b64decode(blob.content), encoding="utf-8")
-            yield {"path": repo.full_name+"/"+entry.path, "text": text}
+            yield {"path": path, "text": text}
 
 def processFile(file):
     path = os.path.join('tests', file['path'])
