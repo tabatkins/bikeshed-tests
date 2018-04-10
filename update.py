@@ -2,7 +2,6 @@ import base64
 import io
 import os
 import re
-import sys
 
 from github import Github
 from github.GithubException import GithubException
