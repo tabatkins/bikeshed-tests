@@ -1,3 +1,5 @@
+# See https://github.com/foolip/bikeshed-tests#adding-your-specs to add your own specs
+
 +org: w3c
 	-repo: w3c/dom
 	-repo: w3c/html
