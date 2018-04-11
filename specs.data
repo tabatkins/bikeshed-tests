@@ -9,3 +9,4 @@
 +org: whatwg
 +org: wicg
 +repo: jfbastien/papers
++repo: heycam/webidl
