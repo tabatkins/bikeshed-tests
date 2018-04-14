@@ -8,5 +8,6 @@
 	-file: w3c/fxtf-drafts/filter-effects/Overview.bs
 +org: whatwg
 +org: wicg
++org: w3ctag
 +repo: jfbastien/papers
 +repo: heycam/webidl
