@@ -9,5 +9,6 @@
 +org: whatwg
 +org: wicg
 +org: w3ctag
++org: WebBluetoothCG
 +repo: jfbastien/papers
 +repo: heycam/webidl
