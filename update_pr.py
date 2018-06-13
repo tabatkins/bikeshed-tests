@@ -9,13 +9,13 @@ def create_pr():
     g = Github(token)
     repo = g.get_repo('tabatkins/bikeshed')
     for pull in repo.get_pulls(state='open'):
-        if pull.head.label == 'foolip:auto-test-update':
+        if pull.head.label == 'autofoolip:auto-test-update':
             print("Existing PR found:", pull.html_url)
             return
     pull = repo.create_pull(title='Automatic test update',
                             body='By https://github.com/foolip/bikeshed-tests',
                             base='master',
-                            head='foolip:auto-test-update')
+                            head='autofoolip:auto-test-update')
     print('Created PR:', pull.html_url)
 
 
