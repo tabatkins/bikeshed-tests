@@ -20,7 +20,7 @@ after_success:
   - git add -A
   - git config user.email "auto@foolip.org"
   - git config user.name "Automat af Cykelskjul"
-  - git commit -m "Automatic test update" -m "Using bikeshed-tests commit $TRAVIS_COMMIT" -m "https://travis-ci.org/foolip/bikeshed-tests/builds/$TRAVIS_BUILD_ID"
+  - git commit -m "Automatic test update" -m "Using bikeshed-tests commit $TRAVIS_COMMIT" -m "https://travis-ci.com/foolip/bikeshed-tests/builds/$TRAVIS_BUILD_ID"
   - git push -f https://autofoolip:$GH_TOKEN@github.com/autofoolip/bikeshed.git master auto-test-update
   - cd ..
   - python update_pr.py
