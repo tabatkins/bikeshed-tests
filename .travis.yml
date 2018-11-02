@@ -14,7 +14,8 @@ script:
   - rm -rf bikeshed/tests/github
   - mv tests bikeshed/tests/github
   - cd bikeshed
-  - find tests/github -type f | xargs bikeshed test --rebase
+  # paths need to be relative to tests/
+  - (cd tests; find github -type f) | xargs bikeshed test --rebase
 after_success:
   - git checkout -b auto-test-update
   - git add -A
