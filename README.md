@@ -11,10 +11,12 @@ submit a PR for the [`specs.data`](https://github.com/foolip/bikeshed-tests/blob
 This file format is line-based:
 to add your entire organization, add a `+org: orgname` line;
 to add a single repo, add a `+repo: user/repo` line.
-to add a single *file*, add a `+file: user/repo/path/to/file.bs` line.
-If you need to exclude any repos or files, use a `-repo` or `-file` line instead.
+If you need to exclude any repos or files, 
+use a `-repo: user/repo`
+or `-file: user/repo/path/to/file.bs` line.
 (`-file` lines can use shell wildcarding conventions to exclude multiple files,
-as implemented by the Python [fnmatch](https://docs.python.org/2/library/fnmatch.html) module.)
+as implemented by the Python [fnmatch](https://docs.python.org/2/library/fnmatch.html) module,
+like `-file: */review-drafts/*.bs` to exclude all files in a `review-drafts` folder.)
 
 The files to be processed by this tool must have the `.bs` extension;
 if you specify a repo or an org,
