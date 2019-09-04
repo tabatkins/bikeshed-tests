@@ -2,10 +2,8 @@
 
 +org: w3c
 	-repo: w3c/dom
-	-repo: w3c/html
 	-repo: w3c/mnx
 	-repo: w3c/uievents
-	-repo: w3c/web-animations
 	-file: w3c/fxtf-drafts/filter-effects/Overview.bs
 +org: whatwg
 	-file: */review-drafts/*.bs

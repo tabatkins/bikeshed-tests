@@ -62,6 +62,9 @@ def reposFromOrg(org, skipRepos=None):
         skipRepos = set(skipRepos)
     print "Searching {0} org for repositories...".format(org.login)
     for repo in org.get_repos():
+        if repo.archived:
+            print "  * Skipping archived repo {0}".format(repo.full_name)
+            continue
         if repo.full_name in skipRepos:
             print "  * Skipping repo {0}".format(repo.full_name)
             continue
