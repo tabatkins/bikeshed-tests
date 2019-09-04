@@ -1,4 +1,5 @@
 import base64
+import fnmatch
 import io
 import os
 import re
@@ -83,7 +84,7 @@ def filesFromRepo(repo, skipFiles=None):
         raise
     for entry in tree.tree:
         path = repo.full_name+"/"+entry.path
-        if path in skipFiles:
+        if any(fnmatch.fnmatch(path, pattern) for pattern in skipFiles):
             print "  * Skipping file {0}".format(entry.path)
             continue
         if entry.type == 'blob' and entry.path.endswith('.bs'):

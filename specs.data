@@ -8,6 +8,7 @@
 	-repo: w3c/web-animations
 	-file: w3c/fxtf-drafts/filter-effects/Overview.bs
 +org: whatwg
+	-file: */review-drafts/*.bs
 +org: wicg
 +org: w3ctag
 +org: WebBluetoothCG
