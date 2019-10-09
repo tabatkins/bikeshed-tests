@@ -12,6 +12,7 @@ def create_pr():
         if pull.head.label == 'autofoolip:auto-test-update':
             print("Existing PR found:", pull.html_url)
             return
+    return
     pull = repo.create_pull(title='Automatic test update',
                             body='By https://github.com/foolip/bikeshed-tests',
                             base='master',

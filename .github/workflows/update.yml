@@ -1,6 +1,9 @@
 on:
   schedule:
     - cron: '20 20 * * *'
+  push:
+    branches:
+      - github-actions
 name: update
 jobs:
   update:
@@ -39,7 +42,8 @@ jobs:
         git config user.email "auto@foolip.org"
         git commit -m "Automatic test update" -m "Using $GITHUB_REPOSITORY commit $GITHUB_SHA"
         git remote add autofoolip https://autofoolip:${{ secrets.AUTOFOOLIP_TOKEN }}@github.com/autofoolip/bikeshed.git
-        git push -f autofoolip master auto-test-update
+        #git push -f autofoolip master auto-test-update
+        git log -1
       working-directory: ../bikeshed
     - name: update PR
       env:
