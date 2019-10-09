@@ -1,0 +1,47 @@
+on:
+  schedule:
+    - cron: '20 20 * * *'
+name: update
+jobs:
+  update:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+    - name: checkout bikeshed
+      uses: actions/checkout@master
+      with:
+        repository: tabatkins/bikeshed
+        ref: master
+        path: bikeshed
+    - name: setup python
+      uses: actions/setup-python@master
+      with:
+        python-version: 2.x
+    - name: install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install --editable ../bikeshed
+        bikeshed update
+    - name: update tests
+      run: |
+        python update.py
+        rm -rf ../bikeshed/tests/github
+        mv tests ../bikeshed/tests/github
+        cd ../bikeshed
+        # paths need to be relative to tests/
+        (cd tests; find github -type f) | xargs bikeshed test --rebase
+    - name: push branch
+      run: |
+        git checkout -b auto-test-update
+        git add -A
+        git config user.name "autofoolip"
+        git config user.email "auto@foolip.org"
+        git commit -m "Automatic test update" -m "Using $GITHUB_REPOSITORY commit $GITHUB_SHA"
+        git remote add autofoolip https://autofoolip:${{ secrets.AUTOFOOLIP_TOKEN }}@github.com/autofoolip/bikeshed.git
+        git push -f autofoolip master auto-test-update
+      working-directory: ../bikeshed
+    - name: update PR
+      env:
+        AUTOFOOLIP_TOKEN: ${{ secrets.AUTOFOOLIP_TOKEN }}
+      run: python update_pr.py

@@ -5,7 +5,7 @@ from github import Github
 
 
 def create_pr():
-    token = os.environ['GH_TOKEN']
+    token = os.environ['AUTOFOOLIP_TOKEN']
     g = Github(token)
     repo = g.get_repo('tabatkins/bikeshed')
     for pull in repo.get_pulls(state='open'):
