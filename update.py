@@ -109,7 +109,7 @@ def processFile(file):
 
 
 def main():
-    token = os.environ['GH_TOKEN']
+    token = os.environ['GITHUB_TOKEN']
     g = Github(token)
     data = getData()
     repos = []
