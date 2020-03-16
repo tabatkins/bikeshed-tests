@@ -8,6 +8,7 @@
 +org: whatwg
 	-file: */review-drafts/*.bs
 +org: wicg
+-repo: WICG/starter-kit
 +org: w3ctag
 +org: WebBluetoothCG
 +org: immersive-web
