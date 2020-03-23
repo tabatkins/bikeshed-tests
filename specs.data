@@ -14,4 +14,4 @@
 +org: immersive-web
 +repo: jfbastien/papers
 +repo: heycam/webidl
-+repo: WebAudio/web-audio-api
++org: WebAudio
